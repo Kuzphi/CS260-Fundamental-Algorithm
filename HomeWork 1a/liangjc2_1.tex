@@ -1,0 +1,65 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{flexisym}
+\usepackage{algorithm}
+\usepackage{indentfirst}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\begin{document}
+\setlength{\parindent}{2ex}
+\newcommand{\header}{
+	\noindent \fbox{
+	\begin{minipage}{6.4in}
+  	\medskip
+  	\textbf{CS 260 - Fundamental Algorithm} \hfill \textbf{Fall 2016} \\[1mm]
+  	\begin{center}
+    	{\Large HomeWork 1a} \\[3mm]
+  	\end{center}
+	\today \hfill \itshape{Liangjian Chen}
+	\medskip
+	\end{minipage}}
+}
+
+\bigskip
+\header
+
+\begin{enumerate}
+\item (Problem 1)\par
+	No, it is not true. For example, there are two women($w_1$, $w_2$) and two men($m_1$,$m_2$). The prefences of them are $w_1(m_1,m_2)$, $w_2(m_2,m_1)$, $m_1(w_2,w_1)$, $m_2(w_1,w_2)$. Then ($m_1$,$w_2$) with ($m_2$,$w_1$) is a stable match. However, both women do not match to their first ranked man.\newline
+
+\item (Problem 2)\par
+	Yes, it is true. Assume it is not true, there must be a man($m\textprime$) and a woman($w\prime$) match the m and w to form two pairs ($m,w\textprime$), ($w, m\textprime$). However $m$ is a better choice for $w$, and $w$ is a  better choice for $m$. So this match is not stable which contradicts with the assumption. \newline
+
+\item (Problem 3)\par
+	Stable pair may not exist. For example, Network $A$'s rating is 1 and 3. Network $B$ has 2 and 4. So the match is either 1 versus 2, 3 versus 4 or 1 versus 4, 2 versus 3. In first case if $B$ change its arrangement, $B$ would win one more slot. In the same time, by changing its arrangement in second case, $A$ also win one more slot. Thus there is no stable pair in this example.
+\item (Problem 4)\par
+\begin{algorithm}
+\caption{Algorithm:}
+	\begin{algorithmic}[1]
+		\While {$\text{There are at least one hospital has free slots}$}
+			\State $\text{Choose any of these hospitals $H_i$ and $H_i$ sends an offer to the next student $S_j$ in its list.}$
+			\If{$S_j\text{ have not had an offer yet}$}
+				\State $S_j\text{ takes this offer}$
+			\ElsIf{$\text{$S_j$ has an offer \textbf{and} $H_i$ ranks higher}$}
+				\State $S_j \text{ rejects the old offer and takes the new one from }H_i$
+			\EndIf
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+Proof of stable:\par
+For first type of instability, in my algorithm, hospital would send its offer to $s\textprime$ before it sends offer to $s$(line 2). And any free student would accept the offer once he get it (line 3 and 4). So this scenario would not appear.\par
+For second type of instability, first, I want argue that, $h$ must has sent a offer to $s$. That because, hospital send their offer by its oder of prefernce(line 2). $s$ ranks lower then $s\textprime$, and $s$ got the offer from the $h$. So $h$ must has sent a offer to $s\textprime$. Second, according to line 5 and 6, a studnet reject a offer iff when a new offer rank higher than old one. So it is impossible when $h\textprime$ rank lower than $h$ in $s\textprime$ list, he still accpets the offer from $h\textprime$ and rejects the offer from $h$.\par
+\item (Problem 5) \par
+	\begin{enumerate}
+	\item
+		Actually, the conditon of this new problem is stonger than original stable mathcing discussed in class. So perfect matching must exist since perfect matching of original problem exists.\par
+		We could apply any secondary comparision into each of indifferent sets (Such as lexicographic order of name or etc.) to make all people in these set different. Then we convert this problem to original stable mathcing problem. We have proofed the existence of stable matching'result. Thus perfect matching of new problem also exists.\par
+	\item
+		No it may not exist. For example, two women($w_1$, $w_2$) and two men($m_1$,$m_2$), both women prefer $m_1$ to $m_2$, and both women are indifferent for $m_1$. Apparently, $m_1$ either matchs $w_1$ or $w_2$. If $m_1$ matchs the $w_1$, then $m_1$ and $w_1$ violate the rule. If $m_1$ matchs $w_2$, then $m_1$ and $w_1$ violate the rule. Thus no perfect matching exists.
+	\end{enumerate}	
+\end{enumerate}
+
+\end{document}
