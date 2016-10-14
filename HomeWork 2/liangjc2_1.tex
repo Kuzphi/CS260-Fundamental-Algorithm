@@ -1,0 +1,94 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{flexisym}
+\usepackage{algorithm}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\begin{document}
+\setlength{\parindent}{2ex}
+\newcommand{\header}{
+	\noindent \fbox{
+	\begin{minipage}{6.4in}
+  	\medskip
+  	\textbf{CS 260 - Fundamentals of the Design and Analysis of Algorithms} \hfill \textbf{Fall 2016} \\[1mm]
+  	\begin{center}
+    	{\Large HomeWork 2} \\[3mm]
+  	\end{center}
+	\today \hfill \itshape{Liangjian Chen}
+	\medskip
+	\end{minipage}}
+}
+
+\bigskip
+\header
+
+\begin{enumerate}
+\item (Problem 2)\par
+	$10^{10} * 60 * 60 = 3.6 * 10^{13}$
+	\begin{enumerate}
+		\item
+			$n = \sqrt{3.6*10^{13}}= 6 * 10^6$
+		\item
+			$n = \sqrt[3]{3.6*10^{13}} = 33019$
+		\item
+			$n = 6 * 10^5$
+		\item
+			$n \approx 1.4 * 10^{11}$(when base = e)
+		\item
+			$n = 45$
+		\item
+			$n = 5$
+	\end{enumerate}
+\item (Problem 4)\par
+	order is $g_1, g_5,g_3,g_4,g_2,g_7,g_6$.
+\item (Problem 5)\par
+	\begin{enumerate}
+		\item False, $f(n) = 10, g(n) = 1$
+		\item False, $f(n) = n^2 + n, g(n) = n^2$
+		\item True,\\
+		 $\forall n \geq n_0, f(n) \leq c * g(n) \\ 
+		  \forall n \geq n_0, f(n)^2 \leq c^2 * g(n)^2\\
+		  f(n)^2 = O(g(n)^2)
+		 $
+	\end{enumerate}
+\item (Problem 6) $f(n)$ can be calculated directly.
+\begin{flalign*}
+f(n) &= \sum_{i = 1}^n\sum_{j = i}^n(j - i + 1)& \\
+	 &= \frac{1}{2}\sum_{i = 1}^n(n-i+2)*(n-i+1)&\\
+	 &= \frac{1}{2}\sum_{i = 1}^n i(i + 1)&\\
+	 &= \frac{n(n+1)(2n + 1)}{12}+ \frac{n(n + 1)}{4}&\\
+	 &= \frac{n(n+1)(n + 2)}{6}&
+\end{flalign*}
+\begin{enumerate}
+	\item $O(f(n)) = n^3$
+	\item $\Omega(f(n)) = n^3$
+	\item Original algorithm makes a lot of redundant work. Instead of iterating from $a[i]$ to $a[j]$, $B[i,j]$ could be simply transfered from either $B[i,j-1]$ or $B[i,j+1]$.
+	\begin{algorithm}
+	\caption{Improved Algorithm:}
+	\begin{algorithmic}[1]
+		\For{$i = 1,2,...,n $}
+		\State $B[i,i] \gets A[i]$
+			\For{$j = i - 1, i - 2, ..., 1$}
+				\State $B[i,j] \gets B[i,j+1] + A[j]$
+			\EndFor
+			\For{$j = i + 1,i + 2,...,n$}
+				\State $B[i,j] \gets B[i,j-1] + A[j]$
+			\EndFor
+		\EndFor
+	\end{algorithmic}
+	\end{algorithm}\par
+	In this algorithm,
+	\begin{flalign*}
+	g(n) &= \sum_{i = 1}^n{(1 + \sum_{j = 1}^{i - 1}{1} + \sum_{j = i + 1}^n {1}})& \\
+		 &= \sum_{i = 1}^n n&\\
+		 &= \frac{n(n+1)}{2}&\\
+		 &= \Theta(n^2)&
+	\end{flalign*}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
