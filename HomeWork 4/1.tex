@@ -32,7 +32,8 @@
 
 \begin{enumerate}
 \item [Problem 3]\textbf{Solution:}\par
-
+let's assume that array $A$ is the array of all package's weight stored by their coming order. Function $MinTruck(X)$ is the minimum number of truck to send all package in $A$. Then an apparent truth is that $MinTruck(A[a:]) \le MinTruck(A[b:])$ if $b \le a$ ($A[a:]$ means the $A$'s subarray which its index from $a$ to the end). 
+	The proof is consider the best arrangement of $MinTruck(A[b:])$. First subtract the item in $A[a:b]$, after that if a truck is empty then discard it. Now we get an possible arrangement of $A[a:]$. And because we  arrangement less than 
 \item [Problem 4]\textbf{Solution:}\par
 \begin{python}
 def Subsequence(S, S_prime):
