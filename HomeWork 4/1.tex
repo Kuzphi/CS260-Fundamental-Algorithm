@@ -32,8 +32,10 @@
 
 \begin{enumerate}
 \item [Problem 3]\textbf{Solution:}\par
-let's assume that array $A$ is the array of all package's weight stored by their coming order. Function $MinTruck(X)$ is the minimum number of truck to send all package in $A$. Then an apparent truth is that $MinTruck(A[a:]) \le MinTruck(A[b:])$ if $b \le a$ ($A[a:]$ means the $A$'s subarray which its index from $a$ to the end). 
-	The proof is consider the best arrangement of $MinTruck(A[b:])$. First subtract the item in $A[a:b]$, after that if a truck is empty then discard it. Now we get an possible arrangement of $A[a:]$. And because we  arrangement less than 
+let's assume that array $A$ is the array of all package's weight stored by their coming order. Function $MinTruck(X)$ is the minimum number of truck to send all package in $A$.
+$A[a:]$ means the $A$'s sub-array which its index from $a$ to the end.\par
+First I wan to argue that $MinTruck(A[a:]) \le MinTruck(A[b:])$ if $b \le a$.Consider the best arrangement of $MinTruck(A[b:])$. Taking all items in $A[a:b]$ out and after that if a truck is empty then discard it. Now we get an possible arrangement of $A[a:]$ which called $X$. So, $MinTruck(A[a:]) \le X \le MinTruck(A[b:]) $ holds.\par
+Then, let's said after arrange some trunks, company still have $A[b:]$ item left. If company make last truck less full, which means it push some item before $b$, and let's say it become $A[a:]$. As I argue before $MinTruck(A[a:]) \le  MinTruck(A[b:])$ always holds. Thus company can never make it better in this way.
 \item [Problem 4]\textbf{Solution:}\par
 \begin{python}
 def Subsequence(S, S_prime):
