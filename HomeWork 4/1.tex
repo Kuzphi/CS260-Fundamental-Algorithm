@@ -60,11 +60,11 @@ Assume that $T$ and $T^\prime$ is two different minimum spanning trees. An edge 
 In conclusion, $G$'s minimum spanning tree is unique.
 \item [Problem 9]\textbf{Solution:}\par
 \begin{enumerate}
-	\item No, like a graph with 3 nodes ($a$,$b$,$c$) and 3 edges ($e(a,b,0),e(a,b,1),e(b,c,100)$). $e(a,b,0),e(a,b,1)$ form a bottleneck tree, but obviously it is not a minimum spanning tree.
+	\item No, like a graph with 3 nodes ($a$,$b$,$c$) and 3 edges ($e(a,b,0),e(a,b,1),e(b,c,100)$). $e(a,b,1),e(b,c,100)$ form a bottleneck tree, but obviously it is not a minimum spanning tree.
 	\item Yes. Assume that $T$ is a minimum spanning tree and $T^\prime$ is a cheaper bottleneck edge. Then picking out the most expensive edge, this edge is heavier than all the edges in $T^\prime$. However, when we insert it into $T^\prime$, it must form a circle. Since this edge is the most expensive edge in this circle, it does not belong to any minimum spanning tree, which contradict with the assumption.
 \end{enumerate}
 \item [Problem 11]\textbf{Solution:}\par
-	Yes. If we subtract every edges in tree $T$ a really small number $\delta$ which does not change the order of non-equal edges. Then run the Kruskal algorithm, algorithm would maximum the subtraction, and return the tree $T$.
+	Yes. If we subtract every edges in tree $T$ a random small number $\delta$ which does not change the order of non-equal-weight edges. Then run the Kruskal algorithm, algorithm would maximum the subtraction, and return the minimum panning tree $T$.
 \item [Problem 17]\textbf{Solution:}\par
 	Dynamic programming could be used to solve this problem. Define state $f[i]$ indicate that begin to the very beginning to time point $i$, the maximum event you can have. Then transfer function is:
 	\begin{enumerate}
@@ -73,8 +73,8 @@ In conclusion, $G$'s minimum spanning tree is unique.
 			Assume $B[x]$ is the beginning time of event $x$.\\
 			$f[i] = \max\{f[i-1], f[B[x] - 1] + 1\}$
 	\end{enumerate}
-			Since all events' end time is distinct, so only one event would end in a specific time point.
-			Now, since time is a continuous variable, we can not handle infinite state space. But we can see that only the beginning time and ending time matter in this transfer equation. So now we can limit state space to a set which only contain the beginning and end time of all events.
+			Since all events' end time is distinct, only one event would end in a specific time point.
+			Then, since time is a continuous variable, we can not handle infinite state space. But we can see that only the beginning time and ending time matter in this transfer equation. So now we can limit state space to a set which only contain the beginning and end time of all events.
 			Thus, state space is $O(n)$, for each state, transfer function costs $O(1)$, the over all time complexity is $O(n)$.
 	
 \item [Problem 27]\textbf{Solution:}\par
@@ -82,9 +82,9 @@ Yes, $\mathcal{H}$ is connected.\\
 Suppose, $T$ is original spanning tree, and $T^\prime$ is the target spanning tree. \\
 $E_T = \{e| e \in T, e \not\in T^\prime\}$.\\
 $E_{T^\prime} = \{e| e \in T^\prime, e \not\in T\}$.\\
-First, i want to prove that it is always possible that delete one edge in $E_T$ and add an edge in $E_{T^\prime}$ to form a new spanning tree.\par
+First, I want to prove that it is always possible that delete one edge in $E_T$ and add an edge in $E_{T^\prime}$ to form a new spanning tree.\par
 Let's choose a edge $e^\prime \in E_{T^\prime}$, and add it to $T$ and form a circle. Beside $e^\prime$,there must be at least one edge in this circle is in set $E_T$. Otherwise, there would be a circle in tree $T^\prime$. So this transfer operation is always doable.\par
-Then, it is obvious that $|E_T| = |E_{T^\prime}|$, so if we keep pick a edge in $E_{T^\prime}$ and add it to $T$, eventually $E_T$ and $E_{T^\prime}$ would be empty which indicate tree $T$ is transfered to $T^\prime$. And a path between two arbitrary spanning tree $T$ and $T^\prime$ could be found which indicate that $\mathcal{H}$ is connected graph.
+Then, it is obvious that $|E_T| = |E_{T^\prime}|$, so if we keep pick a edge in $E_{T^\prime}$ and add it to $T$, eventually $E_T$ and $E_{T^\prime}$ would be empty which indicate tree $T$ is transfered to $T^\prime$. The conclusion that there always be at least one path between any two arbitrary spanning tree $T$ and $T^\prime$ which indicate that $\mathcal{H}$ is connected graph.
 
 \end{enumerate}
 \end{document}
