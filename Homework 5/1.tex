@@ -1,0 +1,51 @@
+\normalfont\documentclass[letterpaper,11pt]{article}
+\usepackage{amsmath, amsfonts,amssymb,latexsym}
+\usepackage{fullpage}
+\usepackage{parskip}
+\usepackage{flexisym}
+\usepackage{indentfirst}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{hyperref}
+\usepackage{algpseudocode}
+\begin{document}
+\setlength{\parindent}{2ex}
+\newcommand{\header}{
+	\noindent \fbox{
+	\begin{minipage}{6.4in}
+	\medskip
+	\textbf{CS 260 Fundamentals of the Design and Analysis of Algorithms} \hfill \textbf{Fall 2016} \\[1mm]
+	\begin{center}
+		{\Large HomeWork 4} \\[3mm]
+	\end{center}
+	  Name: \itshape{Liangjian Chen} \\
+	  \textnormal{ID}: \itshape{\#52006933} \hfill \today
+	\medskip
+	\end{minipage}}
+}
+\bigskip
+\header
+
+\begin{enumerate}
+\item [Problem 5.1]\textbf{Solution:}\par
+	Assume that $A(i)$ means the $i^{th}$ smallest number in Database $A$, and $B(i)$ means the $i^{th}$ smallest number in Database $B$.\par
+	\begin{algorithmic}
+		\Function {Find\_Median}{$n, L_A, L_B$}
+			\If{$N == 1$}
+				\State \Return Min($A(L_A + 1), B(L_B + 1)$)
+			\EndIf
+			\State $mid = \lceil \frac{n}{2} \rceil$
+			\If {$A(L_A + mid) \le B(L_B + mid)$}
+				\State \Call{Find\_Median}{$mid , L_A + \lfloor \frac{n}{2} \rfloor, L_B$}
+			\Else
+				\State \Call{Find\_Median}{$mid , L_A , L_B + \lfloor \frac{n}{2} \rfloor$}
+			\EndIf
+		\EndFunction
+	\end{algorithmic}
+	Initially, call function \Call{Find\_Median}{$n , 0, 0$} \par
+	Every time, we call two median values in both database($mid = \lceil \frac{n}{2} \rceil$), we can see if $A(mid) \le B(mid)$, then $A(1)..A(\lfloor \frac{n}{2} \rfloor)$ would not be the answer, $B(\lceil \frac{n}{2} \rceil)..B(N)$ would not be the answer. So, every time we eliminate half of the possible answer which leads the recurrence $T(n) = T(n / 2) + O(1)$, solve this recurrence,we get $T(n) = O(log(n))$
+\item [Problem 5.3]\textbf{Solution:}\par
+\item [Problem 5.5]\textbf{Solution:}\par
+
+\end{enumerate}
+\end{document}
