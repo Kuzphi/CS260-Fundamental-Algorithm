@@ -45,7 +45,87 @@
 	Initially, call function \Call{Find\_Median}{$n , 0, 0$} \par
 	Every time, we call two median values in both database($mid = \lceil \frac{n}{2} \rceil$), we can see if $A(mid) \le B(mid)$, then $A(1)..A(\lfloor \frac{n}{2} \rfloor)$ would not be the answer, $B(\lceil \frac{n}{2} \rceil)..B(N)$ would not be the answer. So, every time we eliminate half of the possible answer which leads the recurrence $T(n) = T(n / 2) + O(1)$, solve this recurrence,we get $T(n) = O(log(n))$
 \item [Problem 5.3]\textbf{Solution:}\par
+	There is a linear time algorithm.
+	\begin{algorithmic}
+		\Function {Find\_Majority\_Card}{$Cards$}
+			\State $Cur = \O$
+			\State $Count = 0$
+			\ForAll{$ card \in Crads$}
+				\If {$Count == 0$}
+					\State $Current = card$
+				\Else
+					\If{\Call{equivalence\_tester}{Current, card} = $True$}
+						\State $Count = Count + 1$
+					\Else
+						\State $Count = Count - 1$
+					\EndIf
+				\EndIf
+			\EndFor
+			\State $Count = 0$
+			\ForAll{$ card \in Crads$}
+				\If{\Call{equivalence\_tester}{Current, card} = $True$}
+					\State $Count = Count + 1$	
+				\EndIf			
+			\EndFor
+			\If{$Count \ge \lceil \frac{n}{2} \rceil$}
+				\State \Return $Current$ is a majority card.
+			\Else
+				\State \Return no such card.
+			\EndIf
+		\EndFunction
+	\end{algorithmic}
+	The idea is that if there is a card that equivalent to more than $\lceil \frac{n}{2} \rceil$ other cards, then after first for loop, the current must be that card. So in second for loop we check whether it is the answer. We iterate all cards twice, so time complexity is $O(n)$
 \item [Problem 5.5]\textbf{Solution:}\par
-
+	Consider every line $y = a_i x + b_i$ is a half-plane $y \ge a_i x + b_i$. Finding upper bound is equivalent to finding their half-plane intersection. There are several different approaches that is able to achieve $O(n\log n)$ time. One of them is base on the Dived and Conquer(Actually it is a such classical algorithm that you can find it in every computational geometry text book).\par
+	The main idea is split all the half-planes into two equal size subset and recursively calculate these two half-plane intersections, then merge them together to one. The divide part is easy and the key point is how to merge two intersections. \par
+	First, it is easy to realize that all half-plane intersection is a convex polygon(Maybe unbounded) and also in this problem, all intersections would be a lower polygon shell. Another crucial point is that, from left to right, the slope of visible line should be monotonically increasing. This feature make sure we can do it by two points.\par
+	After that, Let's assume $Segment$ is the segment contains all segment in half-plane intersection. pointer $p_1$ point to current segment in $Segment_1$pointer $p_2$ point to current Segment in $Segment_2$. \par
+	Then between two segment $Segment_1[p_1]$ and $Segment_2[p_2]$. First, we need check whether the left point of one segment is on the right of another segment's right point. If so that means one segment is entirely on the left of another one. In this case, we put the left segment into answer list and move the left segment's pointer to next and go back to beginning again.\par
+	Second determined that in the very left, which Segment is on the upper. Then calculate the intersection point of these two segment. If there is not intersection point of two segments, which mean the upper one cover the lower one, move the pointer of lower segment to next and go beginning. If a intersection point reported, which means the upper segment with intersection point as right point is a new segment, put the new segment into our answer list.
+	Finally return answer list as half-plane intersection.\par
+	Obviously, we iterator all the segment once, so merge time is $O(n)$, overall time complexity is $T(n) = 2 T(\frac{n}{2}) + O(n)$, which leads to $T(n) = O(n\log n)$
+\item [Extra Problem 1]\textbf{Solution:}\par
+	\begin{algorithmic}
+		\Function {Find\_Missing\_Number}{$k$}
+			\State $S = \{1,2,3..2^k-1\}$
+			\State $Ans = 0$
+			\For{$i \gets k, k-1, ... ,0$}
+				\State $S_0 = \O$ and $S_1 = \O$
+				\ForAll{$ s \in S$}
+					\If {\Call{bitvalue}{s, i} $== 0$}
+						\State $S_0 \gets S_0 + \{s\}$
+					\Else
+						\State $S_1 \gets S_1 + \{s\}$
+					\EndIf
+				\EndFor
+				\If {$S_1$'s size equal to  $2^i - 1$}
+					\State $S \gets S_1$
+					\State $ans = ans + 2^i$
+				\Else 
+					\State $S \gets S_0$
+				\EndIf 
+			\EndFor
+			\State \Return ans
+		\EndFunction
+	\end{algorithmic}
+	In each iteration, count the how many number whose $i^th$ bit is $1$, and how many is $0$. So the size of corresponding set to missing number's $i^th$ bit is $2^i - 1$. Then we can construct the answer step by step.\par
+	After each iteration, the size of $S$ becomes a half of previous one. So $T(n) = n + \frac{n}{2} + \frac{n}{4}... + 1 = O(n)$ 
+\item [Extra Problem 2]\textbf{Solution:}\par
+	\begin{enumerate}
+	\item $\log_a(b) = \log_4(6) > 1$. So, $T(n) = n^{\log_4(6)}$
+	\item $\log_a(b) = \log_4(2) = \frac{1}{2}$. So, $T(n) = \sqrt{n}\log n$
+	\item $\log_a(b) = \log_3(6) < 2$. Also choose $k = \frac{3}{4}$, $6*\frac{n^2}{9} = \frac{2n^2}{3} \le kn^2$. Thus, $T(n) = O(n^2)$
+	\item Assume that $n = a ^{2b}$, Thus	
+		\begin{gather*}
+			T(a^{2b}) = a^{b}T(a^b) + a^{2b} \\ 
+			\frac{T(a^{2b})}{a^{2b}} = \frac{T(a^{b})}{a^{b}} + 1\\
+		\end{gather*}
+		Easily conclude that
+		\begin{gather*}
+			\frac{T(a^{2b})}{a^{2b}} = O(\log {b})\\
+			T(n) = n * O(\log {\frac{\log_a(n)}{2}})\\
+			T(n) = O(n\log{\log n})
+		\end{gather*}
+	\end{enumerate}
 \end{enumerate}
 \end{document}
