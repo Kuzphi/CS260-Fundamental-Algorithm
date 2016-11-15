@@ -89,10 +89,10 @@
 		\Function {Find\_Missing\_Number}{$k$}
 			\State $S = \{1,2,3..2^k-1\}$
 			\State $Ans = 0$
-			\For{$i \gets k, k-1, ... ,0$}
+			\For{$i \gets k-1, k-2,... ,0$}
 				\State $S_0 = \O$ and $S_1 = \O$
 				\ForAll{$ s \in S$}
-					\If {\Call{bitvalue}{s, i} $== 0$}
+					\If {\Call{bitvalue}{$s, i+1$} $== 0$}
 						\State $S_0 \gets S_0 + \{s\}$
 					\Else
 						\State $S_1 \gets S_1 + \{s\}$
@@ -100,7 +100,7 @@
 				\EndFor
 				\If {$S_1$'s size equal to  $2^i - 1$}
 					\State $S \gets S_1$
-					\State $Ans = Ans + 2^{k-i}$
+					\State $Ans = Ans + 2^{k-i-1}$
 				\Else 
 					\State $S \gets S_0$
 				\EndIf 
