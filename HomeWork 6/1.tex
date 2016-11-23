@@ -121,7 +121,7 @@ Denote $f[i]$ represents the maximum result of among first $i$ characters.
 	$$ f[i]=\left\{
 		\begin{array}{ll}
 		0   &    i = 0\\
-		\min \limits_{0 \le j \le i -1}\{f[j] + (L - (S[i] - S[j] + i - j - 1))^2\} &           i \ge 1
+		\min \limits_{0 \le j \le i -1\text{ and } L \ge S[i] - S[j] + i - j - 1}\{f[j] + (L - (S[i] - S[j] + i - j - 1))^2\} &           i \ge 1
 		\end{array} \right. 
 	$$
 	Final result is $f[n]$.\par
