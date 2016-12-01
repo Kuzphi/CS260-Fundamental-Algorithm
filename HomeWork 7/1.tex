@@ -48,7 +48,14 @@ $s$ is the source, $t$ is the sink.
 	for every injured people$p_i$, $build(s,p_i,1)$, for every hospital $h_i$, $build(h_i,t,\lceil \frac{n}{k}\rceil)$. Then for every pair of people$p_i$ and hospital$h_j$, $build(p_i,h_j,1)$.
 	If the result is $n$, then it is possible.
 \item [Problem 10]\textbf{Solution:}\par
+	Assume that $e^*$ connects $u$ and $v$. 
+	If $e^*$ is not in the cut, then the maximum flow does not change.\par
+	Otherwise, in the residual network. Think about now we set $t$ as a new source and $s$ as a new sink. Then finding a path from $t$ to $v$, and a path $u$ to $s$. and reduce all the flow in this path by one.
 \item [Problem 11]\textbf{Solution:}\par
+	No, it is not.For any positive integer number $n$, construct the follow network(all edges' capacity is $1$).\par
+	\includegraphics[width = 4in]{2.jpeg}\par
+	In this network, apparently the maximum flow is $n$. But if we find the augment path $s\to A_1 \to B_1 \to A_2 \to B_2 \to ... \to A_n \to B_n \to t$ first. Then we can not find any other augment path if we use the algorithm mentioned in the question. Thus the ratio is $\frac{1}{n}$. Because $n$ could be any larger positive number, so there is no such $b$.
 \item [Problem 24]\textbf{Solution:}\par
+	Run the maximum flow algorithm in the original network. Then in the residual network, if one edge is not full, called it valid. Starting from the $s$, find the node set that can be reached from $s$ through valid edge and call it set $\mathcal{S}$. From $t$ find the node set that can be reached to the $t$ through valid edge call it $\mathcal{T}$. If $|\mathcal{S}| + |\mathcal{T}| = n$ then, it is a unique cut. Otherwise it is not.
 \end{enumerate}
 \end{document}
